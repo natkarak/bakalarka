@@ -1,0 +1,10 @@
+{% extends "kompenz/base.html" %}  
+{% load static %}
+
+{% block main %}
+    <form action= '/otazka1/' method="POST">
+        
+        {{ form }}
+        <input type="submit" value="Ďalej" />
+    </form>
+{% endblock %}

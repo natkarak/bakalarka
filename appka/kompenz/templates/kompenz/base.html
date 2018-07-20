@@ -1,0 +1,69 @@
+ {% load static %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Aplikácia</title>
+
+    <meta name="author" content="Natália Rakovská" lang="sk">
+    <meta name="keywords" content="">
+    <meta name="description" content="Informatívna online aplikácia k procesu získania peňažných kompenzácií pre zdravotne ťažko postihnutých občanov">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'css\bootstrap.min.css' %}" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{% static 'js\bootstrap.min.js' %}"></script>
+</head>
+<body>
+    <div class="container">
+       <header>
+        <!-- navigacia/ menu -->
+        <nav class="navbar navbar-default">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>                        
+                    </button>
+                    <a class="navbar-brand" href={% url 'index' %}>Rozprávkovo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar">
+                    <ul class="nav navbar-nav">
+                        {% with url_name=request.resolver_match.url_name %}
+                        <li class="{% if url_name == 'index' %}active{% endif %}"><a href={% url 'index' %}><span>Domov</span></a></li> 
+                        <li class="{% if url_name == 'dotaznik' %}active{% endif %}"><a href={% url 'dotaznik' %}><span>Dotazník</span></a></li>          
+                        <li class="{% if url_name == 'odkazy' %}active{% endif %}"><a href={% url 'odkazy' %}><span>Užitočné odkazy</span></a></li>
+                        <li class="{% if url_name == 'kontakty' %}active{% endif %}"><a href={% url 'kontakty' %}><span>Kontakty</span></a></li> 
+                        {% endwith %}
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        </header>
+        
+        <!-- obsah -->
+        
+        <div class="container-fluid" style="background-color:#f3f3f3">
+            <div class="row">
+                <div class="col-sm-1">
+                </div>
+                <div class="col-sm-10">
+                    {% block main %}
+                    
+                    {% endblock %}    
+                </div>
+                <div class="col-sm-1"></div>
+            </div>
+        </div>
+        
+        <!-- footer -->
+        <footer class="container-fluid" style="background-color:#00ccff">  <p>Copyright ©Natália Rakovská 2017</p> </footer> 
+            
+    </div>
+    
+    
+</body>
+</html> 

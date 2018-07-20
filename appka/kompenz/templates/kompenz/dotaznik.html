@@ -1,0 +1,11 @@
+{% extends "kompenz/base.html" %}  
+{% load static %}
+
+{% block main %}
+    <h1>Dotaznik</h1>
+    <p>Na tejto stránke získate viac informácií o nárokoch na kompenzácie pomocou dotazníka.</p>
+    <p>
+        <a href={% url 'otazka1' %} class="btn btn-info" role="button">Začať</a>
+    </p>
+
+{% endblock %}
