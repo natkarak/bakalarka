@@ -5,10 +5,10 @@
    <section>
     <h1>Kontakty</h1>
     <p>V prípade problémov, alebo otázok nás neváhajte kontaktovať.</p>
-    <form method="post" action= "." class="kontakt-form">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value="Ďalej" />
-    </form>
+   <form role="form" action="" method="POST">
+       
+       {{ form.as_p }}
+       <button type="submit">Odoslať</button>
+   </form>
 </section>
 {% endblock %}

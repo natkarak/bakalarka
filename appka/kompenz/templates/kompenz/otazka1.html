@@ -2,9 +2,8 @@
 {% load static %}
 
 {% block main %}
-    <form action= '/otazka1/' method="POST">
-        
-        {{ form }}
+    <form role="form" action="" method="get"></form>
+        {{ form.as_p}}
         <input type="submit" value="Ďalej" />
     </form>
 {% endblock %}

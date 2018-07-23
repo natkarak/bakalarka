@@ -1,29 +1,21 @@
 from django import forms
 
-from .models import Postihnutie
-
-class KontaktForm(forms.Form):
-	predmet = forms.CharField(max_length=100)
-	sprava = forms.CharField(widget = forms.Textarea)
-	odosielatel = forms.EmailField()
-	cc_myself = forms.BooleanField(required = False)
+class  KontaktForm(forms.Form):
+	"""docstring for  ContactForm"""
+	meno = forms.CharField(required = True)
+	email = forms.EmailField(required = True)
+	sprava = forms.CharField(required = True, widget = forms.Textarea)
 
 
+OTAZKA1 = (
+	('a', 'a.	Nervový systém (poškodenie mozgu, miechy a periférnych nervov'),
+	('b', 'b.	Pohybový a podporný aparát'),
+	)
 
-
-
-
-
-AKY_POSTIH= [
-    ('nervove', 'a.	Nervový systém (poškodenie mozgu, miechy a periférnych nervov)'),
-    ('pohyb', 'b.	Pohybový a podporný aparát'),
-    ]
-
-class PostihForm(forms.Form):    
-	akyPostih = forms.CharField(label = 'Aké máte postihnutie?', widget = forms.RadioSelect(choices = AKY_POSTIH))
-
-
-
+class Otazka1Form(forms.Form):
+	Aké_máte_postihnutie = forms.ChoiceField(choices = OTAZKA1, widget = forms.RadioSelect)
+	
+		
 
 
 
