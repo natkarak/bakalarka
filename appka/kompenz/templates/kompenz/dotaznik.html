@@ -4,8 +4,16 @@
 {% block main %}
     <h1>Dotaznik</h1>
     <p>Na tejto stránke získate viac informácií o nárokoch na kompenzácie pomocou dotazníka.</p>
-    <p>
+    <section>
+        <form role="form" action="" method="GET" name="zad_postih">
+            
+            {{ form.as_p}}
+            <input type="submit" value="Ďalej" />
+        </form>
+    </section>
+    
+    <!-- <p>
         <a href={% url 'otazka1' %} class="btn btn-info" role="button">Začať</a>
-    </p>
+    </p> -->
 
 {% endblock %}
