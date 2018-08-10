@@ -1,5 +1,10 @@
 from django.http import HttpResponseRedirect
+from django.forms import formset_factory
 from django.shortcuts import render
+from django.views.generic import ListView, CreateView, UpdateView
+from django.urls import reverse_lazy
+
+from .models import Osoba
 
 from .forms import Otazka0Form, Otazka1Form, KontaktForm
 
@@ -11,20 +16,18 @@ def index(request):
 
 
 def dotaznik(request):
-	context = {'otazka0Form' : Otazka0Form()}
-	if request.method == 'GET': 
-		form = Otazka0Form(request.GET)
-		zad_postih = request.GET.get('zad_postih')
-		if 'zad_postih' == 'opt1':
-			return HttpResponseRedirect('kompenz/otazka1.html')
-		elif 'zad_postih' == 'opt2':
-			return HttpResponseRedirect('kompenz/kontakty.html')
+	context = formset_factory(Otazka0Form)
+	if request.method == 'POST':
+		formset = context(request.POST)
+		if formset.is_valid():
+			if formset.cleaned_data[0] == 'opt2':
+				return HttpResponseRedirect('kontakty')
+			else:
+				return HttpResponseRedirect('odkazy')
 	else:
-		form = Otazka0Form()
-	#context['otazka0Form'] = form
-	#form_class = Otazka0Form
-	#Chcete_zadať_mieru_postihu = data.get('OTAYZKA0')
-	return render(request, 'kompenz/dotaznik.html', {'form':form})
+		formset = context()
+		return render(request, 'kompenz/dotaznik.html', {'formset': formset})
+		
 
 def odkazy(request):
 	
@@ -37,4 +40,7 @@ def kontakty(request):
 
 def otazka1(request):
 	form_class = Otazka1Form
-	return render(request, 'kompenz/otazka1.html', {'form':form_class})
+	return render(request, 'kompenz/otazka1.html'), #{'form':form_class})
+
+
+

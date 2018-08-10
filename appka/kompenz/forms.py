@@ -1,4 +1,5 @@
 from django import forms
+from .models import Osoba, Postihnutie
 
 class  KontaktForm(forms.Form):
 	"""docstring for  ContactForm"""
@@ -12,7 +13,7 @@ OTAZKA0 = (
 	)
 
 class Otazka0Form(forms.Form):
-	Chcete_zadať_mieru_postihu = forms.ChoiceField(choices = OTAZKA0, widget = forms.RadioSelect)
+	Chcete_zadať_mieru_postihu = forms.ChoiceField(choices = OTAZKA0, widget = forms.RadioSelect())
 
 
 		
@@ -22,7 +23,8 @@ OTAZKA1 = (
 	)
 
 class Otazka1Form(forms.Form):
-	Aké_máte_postihnutie = forms.ChoiceField(choices = OTAZKA1, widget = forms.RadioSelect)
+	Aké_máte_postihnutie = forms.ChoiceField(choices = OTAZKA1, widget = forms.RadioSelect())
+
 
 
 
