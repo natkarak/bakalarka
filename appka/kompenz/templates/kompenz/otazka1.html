@@ -2,8 +2,13 @@
 {% load static %}
 
 {% block main %}
-    <form role="form" action="" method="get">
-        {{ form.as_p}}
+halooooo    
+
+    <form action="" method="POST">
+        {% csrf_token %} 
+        <table>
+        {{ form.as_table}}
+        </table>
         <input type="submit" value="Ďalej" />
-    </form>
+    </form> 
 {% endblock %}

@@ -16,17 +16,17 @@ def index(request):
 
 
 def dotaznik(request):
-	context = formset_factory(Otazka0Form)
+	context = {'otazka0Form' : Otazka0Form()}
 	if request.method == 'POST':
-		formset = context(request.POST)
-		if formset.is_valid():
-			if formset.cleaned_data[0] == 'opt2':
-				return HttpResponseRedirect('kontakty')
+		form = Otazka0Form(request.POST)
+		if form.is_valid():
+			if form.cleaned_data['Chcete_zadať_mieru_postihu'] == 'opt2':   #[0] vyberie prvy form zo zoznamu, lebo formset_factory je zoznam formov a nema cleaned_data
+				return render(request, 'kompenz/otazka1.html')
 			else:
 				return HttpResponseRedirect('odkazy')
 	else:
-		formset = context()
-		return render(request, 'kompenz/dotaznik.html', {'formset': formset})
+		form = Otazka0Form()
+		return render(request, 'kompenz/dotaznik.html', {'form': form})
 		
 
 def odkazy(request):
@@ -39,8 +39,17 @@ def kontakty(request):
 
 
 def otazka1(request):
-	form_class = Otazka1Form
-	return render(request, 'kompenz/otazka1.html'), #{'form':form_class})
+	context = {'otazka1Form' : Otazka1Form()}
+	if request.method == 'POST':
+		form = Otazka1Form(request.POST)
+		if form.is_valid():
+			if form.cleaned_data['Aké_máte_postihnutie'] == 'opt2':   #[0] vyberie prvy form zo zoznamu, lebo formset_factory je zoznam formov a nema cleaned_data
+				return HttpResponseRedirect('kontakty')
+			else:
+				return HttpResponseRedirect('odkazy')
+	else:
+		form = Otazka1Form()
+	return render(request, 'kompenz/otazka1.html', {'form':form})
 
 
 

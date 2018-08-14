@@ -8,10 +8,10 @@
        <form  method="POST" action="dotaznik.html">
             {% csrf_token %} 
            <table>
-               {{ formset.as_table}}
+               {{ form.as_table}}
            </table>
             <input type="submit" value="Ďalej" />
-            <a href="{ % url 'dotaznik' %}">Nevermind</a>
+            
         </form> 
     </section>
     
