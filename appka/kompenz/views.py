@@ -4,9 +4,9 @@ from django.shortcuts import render
 from django.views.generic import ListView, CreateView, UpdateView
 from django.urls import reverse_lazy
 
-from .models import Osoba
 
-from .forms import Otazka0Form, Otazka1Form, KontaktForm
+
+from .forms import Otazka0Form, Otazka1Form, KontaktForm, Otazka2Form, OtazkaDiagForm, OtazkaDiag2Form
 
 app_name= 'kompenz'
 
@@ -20,10 +20,11 @@ def dotaznik(request):
 	if request.method == 'POST':
 		form = Otazka0Form(request.POST)
 		if form.is_valid():
-			if form.cleaned_data['Chcete_zadať_mieru_postihu'] == 'opt2':   #[0] vyberie prvy form zo zoznamu, lebo formset_factory je zoznam formov a nema cleaned_data
-				return render(request, 'kompenz/otazka1.html')
+			if form.cleaned_data['Chcete_zadať_mieru_postihu'] == 'opt2':  
+				return HttpResponseRedirect('otazka1')
+				#return render(request, 'kompenz/otazka1.html', {'otazka1form': Otazka1Form})
 			else:
-				return HttpResponseRedirect('odkazy')
+				return HttpResponseRedirect('kompenzacie')
 	else:
 		form = Otazka0Form()
 		return render(request, 'kompenz/dotaznik.html', {'form': form})
@@ -37,19 +38,130 @@ def kontakty(request):
 	form_class = KontaktForm
 	return render(request, 'kompenz/kontakty.html', {'form':form_class})
 
+def kompenzacie(request):
+	
+	return render(request, 'kompenz/kompenzacie.html')
 
 def otazka1(request):
 	context = {'otazka1Form' : Otazka1Form()}
 	if request.method == 'POST':
 		form = Otazka1Form(request.POST)
 		if form.is_valid():
-			if form.cleaned_data['Aké_máte_postihnutie'] == 'opt2':   #[0] vyberie prvy form zo zoznamu, lebo formset_factory je zoznam formov a nema cleaned_data
-				return HttpResponseRedirect('kontakty')
+			if form.cleaned_data['Aké_máte_postihnutie'] == 'a':   
+				return HttpResponseRedirect('otazka2')
 			else:
 				return HttpResponseRedirect('odkazy')
 	else:
 		form = Otazka1Form()
 	return render(request, 'kompenz/otazka1.html', {'form':form})
 
+def otazka2(request):
+	context = {'otazka2Form' : Otazka2Form()}
+	if request.method == 'POST':
+		form = Otazka2Form(request.POST)
+		if form.is_valid():
+			if form.cleaned_data['Aký_máte_druh_zdravotného_postihnutia'] == '1':
+				return HttpResponseRedirect('otazkaDiag')
+			elif form.cleaned_data['Aký_máte_druh_zdravotného_postihnutia'] == '2':
+				return HttpResponseRedirect('otazkaDiag2')
+			#elif:
 
+			else:
+				return HttpResponseRedirect('odkazy')
+	else:
+		form = Otazka2Form()		
+	return render(request, 'kompenz/otazka2.html', {'form':form})
 
+def otazkaDiag(request):
+	context = {'otazkaDiagForm' : OtazkaDiagForm()}
+	if request.method == 'POST':
+		form = OtazkaDiagForm(request.POST)
+		if form.is_valid():
+			if form.cleaned_data['Ktorú_z_týchto_diagnóz_máte'] == '1':
+				return HttpResponseRedirect('diag1')
+			elif form.cleaned_data['Ktorú_z_týchto_diagnóz_máte'] == '2':
+				return HttpResponseRedirect('diag2')
+			elif form.cleaned_data['Ktorú_z_týchto_diagnóz_máte'] == '3':
+				return HttpResponseRedirect('diag3')
+			elif form.cleaned_data['Ktorú_z_týchto_diagnóz_máte'] == '4':
+				return HttpResponseRedirect('diag4')
+			elif form.cleaned_data['Ktorú_z_týchto_diagnóz_máte'] == '5':
+				return HttpResponseRedirect('diag5')
+			elif form.cleaned_data['Ktorú_z_týchto_diagnóz_máte'] == '6':
+				return HttpResponseRedirect('diag6')
+			elif form.cleaned_data['Ktorú_z_týchto_diagnóz_máte'] == '7':
+				return HttpResponseRedirect('diag7')
+			elif form.cleaned_data['Ktorú_z_týchto_diagnóz_máte'] == '8':
+				return HttpResponseRedirect('diag8')
+			elif form.cleaned_data['Ktorú_z_týchto_diagnóz_máte'] == '9':
+				return HttpResponseRedirect('diag9')
+			elif form.cleaned_data['Ktorú_z_týchto_diagnóz_máte'] == '10':
+				return HttpResponseRedirect('diag10')
+			else:
+				return HttpResponseRedirect('diag11')	
+	else:
+		form = OtazkaDiagForm()
+	return render(request, 'kompenz/otazkaDiag.html', {'form':form})
+
+def diag1(request):
+	return render(request, 'kompenz/diag1.html')
+def diag2(request):
+	return render(request, 'kompenz/diag2.html')
+def diag3(request):
+	return render(request, 'kompenz/diag3.html')
+def diag4(request):
+	return render(request, 'kompenz/diag3.html')
+def diag5(request):
+	return render(request, 'kompenz/diag3.html')
+def diag6(request):
+	return render(request, 'kompenz/diag3.html')
+def diag7(request):
+	return render(request, 'kompenz/diag3.html')
+def diag8(request):
+	return render(request, 'kompenz/diag3.html')
+def diag9(request):
+	return render(request, 'kompenz/diag3.html')
+def diag10(request):
+	return render(request, 'kompenz/diag3.html')
+def diag11(request):
+	return render(request, 'kompenz/diag3.html')
+
+def otazkaDiag2(request):
+	context = {'otazkaDiag2Form' : OtazkaDiag2Form()}
+	if request.method == 'POST':
+		form = OtazkaDiag2Form(request.POST)
+		if form.is_valid():
+			if form.cleaned_data['Ktorú_z_týchto_diagnóz_máte'] == '1':
+				return HttpResponseRedirect('diag')
+
+	else:
+		form = OtazkaDiag2Form()
+	return render(request, 'kompenz/otazkaDiag2.html', {'form':form})
+
+def otazkaDiag3(request):
+	#
+	return render(request, 'kompenz/otazkaDiag3.html')
+
+def otazkaDiag4(request):
+	#
+	return render(request, 'kompenz/otazkaDiag4.html')
+
+def otazkaDiag5(request):
+	#
+	return render(request, 'kompenz/otazkaDiag5.html')
+
+def otazkaDiag6(request):
+	#
+	return render(request, 'kompenz/otazkaDiag6.html')
+
+def otazkaDiag7(request):
+	#
+	return render(request, 'kompenz/otazkaDiag7.html')
+
+def otazkaDiag8(request):
+	#
+	return render(request, 'kompenz/otazkaDiag8.html')
+
+def otazkaDiag9(request):
+	#
+	return render(request, 'kompenz/otazkaDiag9.html')

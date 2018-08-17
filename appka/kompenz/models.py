@@ -27,17 +27,7 @@ class Postihnutie (models.Model):
 		"""A function inside the class Postihnutie, to show the nazov"""
 		return self.nazov
 
-class Osoba (models.Model):
-	meno = models.CharField(max_length = 100)
-	priezvisko = models.CharField(max_length = 150)
-	postihnutie = models.ForeignKey(Postihnutie, on_delete = models.SET_NULL, null = True)
-	
-	def __str__(self):
-		"""A function inside the class Postihnutie, to show the nazov"""
-		return self.meno
-	#prijem = models.IntegerField(default = 0)
-	#neplnolety = models.BooleanField(default = False)
-	#prodiktivnyVek = models.BooleanField()
+
 
 class Kompenzacia(models.Model):
 	nazov = models.CharField(max_length = 100)

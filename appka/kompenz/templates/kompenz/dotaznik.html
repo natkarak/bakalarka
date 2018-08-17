@@ -7,16 +7,12 @@
     <section>
        <form  method="POST" action="dotaznik.html">
             {% csrf_token %} 
-           <table>
-               {{ form.as_table}}
-           </table>
-            <input type="submit" value="Ďalej" />
-            
+            <table>
+                {{ form.as_table}}
+            </table>
+            <p>
+                <input type="submit" value="Ďalej" />
+            </p>
         </form> 
     </section>
-    
-    <!-- <p>
-        <a href={% url 'otazka1' %} class="btn btn-info" role="button">Začať</a>
-    </p> -->
-
 {% endblock %} 
