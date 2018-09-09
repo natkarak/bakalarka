@@ -6,7 +6,7 @@ from django.urls import reverse_lazy
 
 
 
-from .forms import Otazka0Form, Otazka1Form, KontaktForm, Otazka2Form, OtazkaDiagForm, OtazkaDiag2Form
+from .forms import Otazka0Form, Otazka1Form, KontaktForm, Otazka2Form, OtazkaDiagForm, OtazkaPerifNPForm, OtazkaKompForm, OblastKompForm
 
 app_name= 'kompenz'
 
@@ -39,17 +39,30 @@ def kontakty(request):
 	return render(request, 'kompenz/kontakty.html', {'form':form_class})
 
 def kompenzacie(request):
-	
-	return render(request, 'kompenz/kompenzacie.html')
+	context = {'OblastKompForm' : OblastKompForm()}
+	if request.method == 'POST':
+		form = OblastKompForm(request.POST)
+		if form.is_valid():
+			if form.cleaned_data['O_ktorú_oblasť_kompenzácie_máte_záujem'] == 'a':  
+				return HttpResponseRedirect('kompenzacie')
+			elif form.cleaned_data['O_ktorú_oblasť_kompenzácie_máte_záujem'] == 'b':  
+				return HttpResponseRedirect('kompenzacie')
+			elif form.cleaned_data['O_ktorú_oblasť_kompenzácie_máte_záujem'] == 'c':  
+				return HttpResponseRedirect('kompenzacie')
+			else:
+				return HttpResponseRedirect('odkazy')
+	else:
+		form = OblastKompForm()
+	return render(request, 'kompenz/kompenzacie.html', {'form':form})
 
 def otazka1(request):
 	context = {'otazka1Form' : Otazka1Form()}
 	if request.method == 'POST':
 		form = Otazka1Form(request.POST)
 		if form.is_valid():
-			if form.cleaned_data['Aké_máte_postihnutie'] == 'a':   
+			if form.cleaned_data['Aké_máte_postihnutie'] == '05':   
 				return HttpResponseRedirect('otazka2')
-			else:
+			elif form.cleaned_data['Aké_máte_postihnutie'] == '12':
 				return HttpResponseRedirect('odkazy')
 	else:
 		form = Otazka1Form()
@@ -63,7 +76,7 @@ def otazka2(request):
 			if form.cleaned_data['Aký_máte_druh_zdravotného_postihnutia'] == '1':
 				return HttpResponseRedirect('otazkaDiag')
 			elif form.cleaned_data['Aký_máte_druh_zdravotného_postihnutia'] == '2':
-				return HttpResponseRedirect('otazkaDiag2')
+				return HttpResponseRedirect('otazkaPerifNP')
 			#elif:
 
 			else:
@@ -110,33 +123,43 @@ def diag2(request):
 def diag3(request):
 	return render(request, 'kompenz/diag3.html')
 def diag4(request):
-	return render(request, 'kompenz/diag3.html')
+	return render(request, 'kompenz/diag4.html')
 def diag5(request):
-	return render(request, 'kompenz/diag3.html')
+	return render(request, 'kompenz/diag5.html')
 def diag6(request):
-	return render(request, 'kompenz/diag3.html')
+	return render(request, 'kompenz/diag6.html')
 def diag7(request):
-	return render(request, 'kompenz/diag3.html')
+	return render(request, 'kompenz/diag7.html')
 def diag8(request):
-	return render(request, 'kompenz/diag3.html')
+	return render(request, 'kompenz/diag8.html')
 def diag9(request):
-	return render(request, 'kompenz/diag3.html')
-def diag10(request):
-	return render(request, 'kompenz/diag3.html')
-def diag11(request):
-	return render(request, 'kompenz/diag3.html')
-
-def otazkaDiag2(request):
-	context = {'otazkaDiag2Form' : OtazkaDiag2Form()}
+	context = {'OtazkaKompForm' : OtazkaKompForm()}
 	if request.method == 'POST':
-		form = OtazkaDiag2Form(request.POST)
+		form = OtazkaKompForm(request.POST)
+		if form.is_valid():
+			if form.cleaned_data['Chcete_pokračovať_zistením_nároku_na_kompenzácie'] == 'ano':  
+				return HttpResponseRedirect('kompenzacie')
+			else:
+				return HttpResponseRedirect('odkazy')
+	else:
+		form = OtazkaKompForm()
+	return render(request, 'kompenz/diag9.html', {'form':form})
+def diag10(request):
+	return render(request, 'kompenz/diag10.html')
+def diag11(request):
+	return render(request, 'kompenz/diag11.html')
+
+def otazkaPerifNP(request):
+	context = {'otazkaPerifNPForm' : OtazkaPerifNPForm()}
+	if request.method == 'POST':
+		form = OtazkaDiagPerifNPForm(request.POST)
 		if form.is_valid():
 			if form.cleaned_data['Ktorú_z_týchto_diagnóz_máte'] == '1':
 				return HttpResponseRedirect('diag')
 
 	else:
-		form = OtazkaDiag2Form()
-	return render(request, 'kompenz/otazkaDiag2.html', {'form':form})
+		form = OtazkaPerifNPForm()
+	return render(request, 'kompenz/otazkaPerifNP.html', {'form':form})
 
 def otazkaDiag3(request):
 	#

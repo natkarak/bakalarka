@@ -1,5 +1,5 @@
 from django import forms
-from .models import Postihnutie
+from .models import Postihnutie, KATPOS, OBLASTKOMP
 
 class  KontaktForm(forms.Form):
 	"""docstring for  ContactForm"""
@@ -14,14 +14,9 @@ OTAZKA0 = (
 
 class Otazka0Form(forms.Form):
 	Chcete_zadať_mieru_postihu = forms.ChoiceField(choices = OTAZKA0, widget = forms.RadioSelect())
-		
-OTAZKA1 = (
-	('a', 'a.	Nervový systém (poškodenie mozgu, miechy a periférnych nervov'),
-	('b', 'b.	Pohybový a podporný aparát'),
-	)
 
 class Otazka1Form(forms.Form):
-	Aké_máte_postihnutie = forms.ChoiceField(choices = OTAZKA1, widget = forms.RadioSelect())
+	Aké_máte_postihnutie = forms.ChoiceField(choices = KATPOS, widget = forms.RadioSelect())
 
 OTAZKA2 = (
 	('1', '1)	Centrálne neurogénne poruchy (poškodenie pyramídovej dráhy mozgu a miechy)'),
@@ -60,13 +55,18 @@ OTAZKADiag2 = (
 	('2','2) Periférne neurogénne poruchy hornej končatiny'),
 	)
 
-class OtazkaDiag2Form(forms.Form):
+class OtazkaPerifNPForm(forms.Form):
 	Ktorú_z_týchto_diagnóz_máte = forms.ChoiceField(choices = OTAZKADiag2, widget = forms.RadioSelect())
 
+KOMPENZ = (
+	('ano','áno'),
+	('nie','nie'),
+	)
+class OtazkaKompForm(forms.Form):
+	Chcete_pokračovať_zistením_nároku_na_kompenzácie = forms.ChoiceField(choices = KOMPENZ, widget = forms.RadioSelect())
 
-
-
-
+class OblastKompForm(forms.Form):
+	O_ktorú_oblasť_kompenzácie_máte_záujem = forms.ChoiceField(choices = OBLASTKOMP, widget = forms.RadioSelect)
 
 
 
